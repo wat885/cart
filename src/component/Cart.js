@@ -1,21 +1,36 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { AddCartItem } from "../slices/cartSlice";
 
 function Cart() {
+  const cart = useSelector((state) => {
+    return state.cart;
+  });
+  const dispatch = useDispatch();
+
+  // console.log(cart.products);
+
   return (
     <>
       <section className="product-container">
         <h1 className="product-heading">Products</h1>
         <div className="product-list">
-          <div className="product">
-            <img
-              src="http://dummyimage.com/350x350.png/dddddd/000000"
-              alt="sample name"
-            />
-            <h2>Sample name</h2>
-            <p>Sample desc</p>
-            <button>Add to cart</button>
-          </div>
+          {cart.products.map((product, index) => {
+            // console.log(product);
+            if (index < 5) {
+              return (
+                <div className="product" key={product.id}>
+                  <img src={product.image} alt="sample name" />
+                  <h2>{product.name}</h2>
+                  <p>{product.description}</p>
+                  <button onClick={() => dispatch(AddCartItem(product.id))}>
+                    Add to cart
+                  </button>
+                </div>
+              );
+            }
+          })}
         </div>
       </section>
       <hr />

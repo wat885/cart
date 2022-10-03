@@ -7,8 +7,9 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     addCounter: (state, action) => {
-      state = state + 1;
-      return state;
+      console.log("testlog")
+      // state = state + 1;
+      // return state;
     },
     subtractCounter: (state, action) => {
       state = state - 1;

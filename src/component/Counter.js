@@ -12,6 +12,8 @@ function Counter() {
     return state.counter;
   });
 
+  console.log(counter)
+
   const dispatch = useDispatch();
 
   return (
