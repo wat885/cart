@@ -72,8 +72,16 @@ export const cartSlice = createSlice({
 
       state.carts.map((e, index) => {
         if (e.id == action.payload.id) {
-          // console.log("Subtract quantity");
-          state.carts[index].quantity--;
+          if (state.carts[index].quantity === 1) {
+            // console.log("delete cart");
+            let newData = state.carts.filter((p) => {
+              return p.id !== action.payload.id;
+            });
+            state.carts = [...newData];
+          } else {
+            // console.log("Subtract quantity");
+            state.carts[index].quantity--;
+          }
         }
       });
     },
@@ -86,9 +94,13 @@ export const cartSlice = createSlice({
       state.carts = [...newData];
     },
     HandleTotalprice: (state, action) => {
-      console.log("HandleTotalprice");
+      // console.log("HandleTotalprice");
 
-      
+      state.totalPrice = state.carts.reduce(
+        (previousValue, currentValue) =>
+          previousValue + currentValue.price * currentValue.quantity,
+        0
+      );
     },
   },
 });
