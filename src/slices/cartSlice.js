@@ -6,15 +6,15 @@ let sliceData = data.slice(0, 5);
 const initialState = {
   products: [...sliceData],
   carts: [
-    {
-      id: 5,
-      name: "Dried Figs",
-      price: 1112,
-      image: "http://dummyimage.com/350x350.png/5fa2dd/ffffff",
-      description:
-        "Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
-      quantity: 3,
-    },
+    // {
+    //   id: 5,
+    //   name: "Dried Figs",
+    //   price: 1112,
+    //   image: "http://dummyimage.com/350x350.png/5fa2dd/ffffff",
+    //   description:
+    //     "Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
+    //   quantity: 3,
+    // },
   ],
   totalPrice: 0,
 };
