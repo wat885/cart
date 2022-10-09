@@ -1,7 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AddCartItem } from "../slices/cartSlice";
+import {
+  AddCartItem,
+  AddQuantity,
+  SubtractQuantity,
+  DeleteCartItem,
+  HandleTotalprice,
+} from "../slices/cartSlice";
 
 function Cart() {
   const cart = useSelector((state) => {
@@ -11,6 +17,11 @@ function Cart() {
 
   // console.log(cart.products);
   console.log(cart.carts);
+
+  useEffect(() => {
+    // console.log("useEffect() called");
+    dispatch(HandleTotalprice());
+  }, [cart.carts]);
 
   return (
     <>
@@ -34,19 +45,38 @@ function Cart() {
       <hr />
 
       <section className="cart">
-        <h1 className="cart-heading">Cart (Total Price is x Baht)</h1>
+        <h1 className="cart-heading">
+          Cart (Total Price is {cart.totalPrice} Baht)
+        </h1>
         <div className="cart-item-list">
           {cart.carts.map((product, index) => {
             // console.log(console.log("this is product", product));
             return (
               <div className="cart-item" key={product.id}>
-                <h1>Item name: Fond - Neutral</h1>
-                <h2>Price: 160 Baht</h2>
-                <h2>Quantity: 2</h2>
-                <button className="delete-button">x</button>
+                <h1>Item name: {product.name}</h1>
+                <h2>Price: {product.price} Baht</h2>
+                <h2>Quantity: {product.quantity}</h2>
+                <button
+                  className="delete-button"
+                  onClick={() => dispatch(DeleteCartItem({ id: product.id }))}
+                >
+                  x
+                </button>
                 <div className="quantity-actions">
-                  <button className="add-quantity">+</button>
-                  <button className="subtract-quantity">-</button>
+                  <button
+                    className="add-quantity"
+                    onClick={() => dispatch(AddQuantity({ id: product.id }))}
+                  >
+                    +
+                  </button>
+                  <button
+                    className="subtract-quantity"
+                    onClick={() =>
+                      dispatch(SubtractQuantity({ id: product.id }))
+                    }
+                  >
+                    -
+                  </button>
                 </div>
               </div>
             );
